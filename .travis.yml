@@ -7,3 +7,16 @@ before_install:
 
 script:
   - docker run akash2016/docker-react npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: ""
+  app: "docker"
+  env: "docker-env"
+  bucket_name: "s3 bucket name"
+  bucket_path: "docker" // should be equal to app name
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY // environment varibale of travis
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
